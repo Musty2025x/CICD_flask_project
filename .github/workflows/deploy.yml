@@ -1,0 +1,38 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::455025093404:role/github-actions-ecr-role
+          aws-region: us-east-1
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region us-east-1 \
+          | docker login --username AWS --password-stdin 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app
+      - name: Build Docker Image
+        run: |
+          docker build -t cicd-app .
+      
+      - name: Tag Docker Image
+        run: |
+          docker tag cicd-app:latest 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app: latest
+      - name: Push Docker Image
+        run: |
+          docker push 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app: latest
