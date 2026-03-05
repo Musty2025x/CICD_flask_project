@@ -35,4 +35,4 @@ jobs:
           docker tag cicd-app:latest 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
       - name: Push Docker Image
         run: |
-          docker push 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app: latest
+          docker push 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
