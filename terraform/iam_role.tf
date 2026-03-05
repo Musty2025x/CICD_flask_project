@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "github_assume_role" {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values = [
-        "repo:https://github.com/SuhaniSharmaJoshi/CICD_flask_project.git:ref:refs/heads/main"
+        "repo:SuhaniSharmaJoshi/CICD_flask_project:ref:refs/heads/main"
       ]
     }
   }
