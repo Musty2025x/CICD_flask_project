@@ -14,14 +14,11 @@ systemctl enable docker
 # Allow ec2-user to run docker without sudo
 usermod -aG docker ec2-user
 
-# Install Git (optional but useful)
-dnf install -y git
+#login to ECR
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 455025093404.dkr.ecr.us-east-1.amazonaws.com
 
-# Install AWS CLI v2 (usually preinstalled, but safe)
-dnf install -y awscli
+#pull docker image
+docker pull 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
 
-# Create app directory
-mkdir -p /home/ec2-user/app
-chown ec2-user:ec2-user /home/ec2-user/app
-
-echo "User data setup completed"
+#run container
+docker run -d -p 80:5000 55025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest

@@ -52,7 +52,7 @@ resource "aws_instance" "app_server" {
   user_data = file("${path.module}/user_data.sh")
 
   tags= {
-    Name = "Terraform-EC2-AppServer"
+    Name = "CICD-App-Server"
   }
 
 
