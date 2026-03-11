@@ -54,6 +54,7 @@ jobs:
             # Stop old container if it exists
             docker stop cicd-app || true
             docker rm -f cicd-app || true
+            docker container prune -f
 
             # Pull latest image from ECR
             docker pull 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
