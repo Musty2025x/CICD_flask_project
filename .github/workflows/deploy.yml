@@ -46,6 +46,11 @@ jobs:
       - name: Deploy Docker on EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@44.196.55.192 << 'EOF'
+            
+            # login to ECR
+            aws ecr get-login-password --region us-east-1 \
+            | docker login --username AWS --password-stdin 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app
+            
             # Stop old container if it exists
             docker rm -f cicd-app || true
 
