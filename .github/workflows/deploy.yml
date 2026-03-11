@@ -60,6 +60,6 @@ jobs:
             docker pull 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
      
             # Run the container
-            docker run -d --name cicd-app -p 80:5000 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
+            docker run -d  -p 80:5000 --name cicd-app 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
           EOF
         shell: bash
