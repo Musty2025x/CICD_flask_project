@@ -52,6 +52,7 @@ jobs:
             | docker login --username AWS --password-stdin 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app
             
             # Stop old container if it exists
+            docker stop cicd-app || true
             docker rm -f cicd-app || true
 
             # Pull latest image from ECR
