@@ -36,3 +36,23 @@ jobs:
       - name: Push Docker Image
         run: |
           docker push 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh 
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+        shell: bash
+
+      - name: Deploy Docker on EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@44.196.55.192 << 'EOF'
+            # Stop old container if it exists
+            docker rm -f cicd-app || true
+
+            # Pull latest image from ECR
+            docker pull 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
+     
+            # Run the container
+            docker run -d --name cicd-app -p 80:5000 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
+          EOF
+        shell: bash

@@ -38,17 +38,24 @@ resource "aws_security_group" "ec2_sg" {
     }
   
 }
+resource "aws_eip" "app_ip" {
+   
+}
+resource "aws_eip_association" "app_ip_assoc" {
+    instance_id = aws_instance.app_server.id
+    allocation_id = aws_eip.app_ip.id
+  
+}
 
 resource "aws_instance" "app_server" {
 
   ami = var.ami_id
   instance_type = var.instance_type
-  key_name = var.key_name
+  key_name = aws_key_pair.github_key.key_name
   subnet_id = data.aws_subnets.default.ids[0]
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
-  associate_public_ip_address = true
-
+  
   user_data = file("${path.module}/user_data.sh")
 
   tags= {

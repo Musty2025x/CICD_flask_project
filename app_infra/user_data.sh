@@ -21,4 +21,4 @@ aws ecr get-login-password --region us-east-1 | docker login --username AWS --pa
 docker pull 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
 
 #run container
-docker run -d -p 80:5000 55025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
+docker run -d -p 80:5000 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
