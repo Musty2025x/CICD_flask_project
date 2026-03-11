@@ -39,13 +39,13 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh 
-          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
         shell: bash
 
       - name: Deploy Docker on EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@44.196.55.192 << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@72.44.55.254 << 'EOF'
             
             # login to ECR
             aws ecr get-login-password --region us-east-1 \
