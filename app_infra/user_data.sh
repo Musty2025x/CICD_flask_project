@@ -47,3 +47,38 @@ EON'
 
 sudo nginx -t
 sudo systemctl restart nginx
+
+#monitoring stack
+mkdir -p /home/ec2-user/monitoring/prometheus
+mkdir -p /home/ec2-user/monitoring/grafana/dashboards
+
+# Copy prometheus.yml and dashboards (from GitHub repo or S3)
+# Example using GitHub:
+cd /home/ec2-user
+git clone https://github.com/SuhaniSharmaJoshi/CICD_flask_project.git monitoring
+
+# Start monitoring containers
+cd /home/ec2-user/monitoring
+docker-compose up -d
+
+# Optional: Enable monitoring containers on EC2 reboot
+cat <<EOT >> /etc/systemd/system/monitoring.service
+[Unit]
+Description=Monitoring Stack
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/ec2-user/monitoring
+ExecStart=/usr/local/bin/docker-compose up -d
+ExecStop=/usr/local/bin/docker-compose down
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOT
+
+systemctl enable monitoring.service
+systemctl start monitoring.service
+
