@@ -24,7 +24,7 @@ sudo dnf install -y docker-compose-plugin
 
 #run container
 #docker run -d -p 80:5000 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
-dnf install -y git
+sudo dnf install git -y
 #install Nginx
 sudo dnf install nginx -y
 sudo systemctl enable nginx

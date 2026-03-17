@@ -45,7 +45,7 @@ jobs:
 
       - name: Deploy Docker on EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@100.49.48.89 << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@98.89.15.197 << 'EOF'
             
             # login to ECR
             aws ecr get-login-password --region us-east-1 \
