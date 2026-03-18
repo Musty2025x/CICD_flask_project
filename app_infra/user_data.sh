@@ -24,7 +24,7 @@ sudo dnf install -y docker-compose-plugin
 
 #run container
 #docker run -d -p 80:5000 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
-dnf install -y git || {echo "Git install failed"; exit 1;}
+sudo dnf install -y git || {echo "Git install failed"; exit 1;}
 git --version
 sleep 5
 #install Nginx
@@ -61,7 +61,7 @@ mkdir -p /home/ec2-user/monitoring/grafana/dashboards
 cd /home/ec2-user
 git clone https://github.com/SuhaniSharmaJoshi/CICD_flask_project.git temp_repo
 
-mv temp_repo/monitoring /home/ec2-user/monitoring
+mv temp_repo/app_infra/monitoring /home/ec2-user/monitoring
 rm -rf temp_repo
 # Give ownership to ec2-user
 chown -R ec2-user:ec2-user /home/ec2-user/monitoring
