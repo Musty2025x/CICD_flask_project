@@ -5,7 +5,7 @@ set -eux
 dnf update -y
 
 #install git
-sudo dnf install -y git || {echo "Git install failed"; exit 1;}
+dnf install -y git
 git --version
 sleep 5
 # Install Docker
