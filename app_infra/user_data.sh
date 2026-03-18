@@ -4,6 +4,10 @@ set -eux
 # Update system
 dnf update -y
 
+#install git
+sudo dnf install -y git || {echo "Git install failed"; exit 1;}
+git --version
+sleep 5
 # Install Docker
 dnf install -y docker
 
@@ -24,9 +28,7 @@ sudo dnf install -y docker-compose-plugin
 
 #run container
 #docker run -d -p 80:5000 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
-sudo dnf install -y git || {echo "Git install failed"; exit 1;}
-git --version
-sleep 5
+
 #install Nginx
 sudo dnf install nginx -y
 sudo systemctl enable nginx
