@@ -4,7 +4,7 @@ global:
 scrape_configs:
   - job_name: 'node-exporter'
     static_configs:
-      - targets: ['PRIVATE_IP_PLACEHOLDER:9100']
+      - targets: ['32.193.194.171:9100']
 
   - job_name: 'prometheus'
     static_configs:

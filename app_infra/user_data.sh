@@ -66,9 +66,9 @@ REPO_TAG=main   # TODO: replace with a pinned tag e.g. v1.2.0
 
 CLONE_DIR=$(mktemp -d)
 git clone --depth 1 --branch "$REPO_TAG" "$REPO_URL" "$CLONE_DIR"
-PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
-sed -i "s/PRIVATE_IP_PLACEHOLDER/$PRIVATE_IP/g" \
-  /home/ec2-user/monitoring/prometheus/prometheus.yml
+#PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+#sed -i "s/PRIVATE_IP_PLACEHOLDER/$PRIVATE_IP/g" \
+  #/home/ec2-user/monitoring/prometheus/prometheus.yml
 
 # Move monitoring config into place
 rm -rf "$MONITORING_DIR"
