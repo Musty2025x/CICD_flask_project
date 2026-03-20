@@ -4,7 +4,7 @@ global:
 scrape_configs:
   - job_name: 'node-exporter'
     static_configs:
-      - targets: ['3.210.196.39:9100']
+      - targets: ['54.173.85.161:9100']
 
   - job_name: 'prometheus'
     static_configs:
