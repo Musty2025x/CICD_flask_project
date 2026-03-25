@@ -1,15 +1,16 @@
 from flask import Flask, request
 import os
 from prometheus_flask_exporter import PrometheusMetrics
-metrics = PrometheusMetrics(app)
+
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 @app.route("/")
 def home():
     #get headers sent by nginx
     client_ip = request.headers.get('X-Real-IP','Not set')
-    forwarded_for = request.headers.get('Host','Not set')
+    forwarded_for = request.headers.get('X-Forwarded-For','Not set')
     host = request.headers.get('Host', 'Not set')
 
     return f"""
