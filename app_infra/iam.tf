@@ -26,7 +26,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 
 resource "aws_key_pair" "github_key" {
   key_name = "github-key"
-  public_key = file("/Users/suhanijoshi/.ssh/id_rsa.pub")
+  public_key = file("~/.ssh/id_rsa.pub")
 }
 
 
