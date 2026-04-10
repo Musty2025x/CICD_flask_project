@@ -20,22 +20,22 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::455025093404:role/github-actions-ecr-role
+          role-to-assume: arn:aws:iam::300272447770:role/github-actions-ecr-role  # Replace with your IAM role ARN
           aws-region: us-east-1
       - name: Login to Amazon ECR
         run: |
           aws ecr get-login-password --region us-east-1 \
-          | docker login --username AWS --password-stdin 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app
+          | docker login --username AWS --password-stdin 300272447770.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app
       - name: Build Docker Image
         run: |
           docker build -t cicd-app -f ./app/Dockerfile ./app
       
       - name: Tag Docker Image
         run: |
-          docker tag cicd-app:latest 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
+          docker tag cicd-app:latest 300272447770.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
       - name: Push Docker Image
         run: |
-          docker push 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
+          docker push 300272447770.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh 
@@ -45,18 +45,18 @@ jobs:
 
       - name: Deploy Docker on EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@52.6.225.214 << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@54.221.188.253 << 'EOF'
             
             # login to ECR
             aws ecr get-login-password --region us-east-1 \
-            | docker login --username AWS --password-stdin 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app
+            | docker login --username AWS --password-stdin 300272447770.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app
             
             # Pull latest image from ECR
-            docker pull 455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
+            docker pull 300272447770.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest
            
             # Deploy flask-app via compose
             cd /home/ec2-user/monitoring  
-            FLASK_IMAGE=455025093404.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest \
+            FLASK_IMAGE=300272447770.dkr.ecr.us-east-1.amazonaws.com/cicd-python-app:latest \
              docker compose up -d --no-deps --force-recreate flask-app 
 
             #Nginx reload
